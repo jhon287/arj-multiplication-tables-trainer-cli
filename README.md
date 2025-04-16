@@ -19,18 +19,38 @@ This is based on tests that have been done at "Le Petit Athénée de Jodoigne" w
 
 This program is writen using Python so basically you only need Python installed on your workstation, nothing more as there is no library dependencies. 🎉
 
+### Usage
+
 ```shell
 # Show help
 > python3 src/main.py --help
-usage: main.py [-h] [--color {white,yellow,orange,pink,green,blue,purple,brown}] [--print-only]
+usage: main.py [-h] [--color {white,yellow,orange,pink,green,blue,purple,brown,all}] [--print-only]
 
 ARJ Multiplication Tables Trainer CLI
 
 options:
   -h, --help            show this help message and exit
-  --color {white,yellow,orange,pink,green,blue,purple,brown}
+  --color {white,yellow,orange,pink,green,blue,purple,brown,all}
   --print-only
+```
 
+### Run all in once (Marathon mode)
+
+You can do all tables in one go by setting `--color` parameter to `all` value.
+
+You can either do or only print (`--print-only`) all of them.
+
+```shell
+# Train all tables as small game (Marathon mode)
+> python3 src/main.py --color all
+
+# Only print calculations of all belt's colors
+> python3 src/main.py --color all --print-only
+```
+
+### Train specific belt's color
+
+```shell
 # Only print calculations of yellow belt
 > python3 src/main.py --color yellow --print-only
 Belt Color: 🟡 (Yellow - 8 of [2, 5, 10])
@@ -75,7 +95,7 @@ docker build -t arj-multiplication-tables-trainer-cli .
 ### Run
 
 ```shell
-# Print only calculations of brown belt
+# Only print calculations of brown belt
 > docker run --rm arj-multiplication-tables-trainer-cli --color brown --print-only
 Belt Color: 🟤 (Brown - 20 of [2, 3, 4, 5, 6, 7, 8, 9, 10])
  3 x  7 =

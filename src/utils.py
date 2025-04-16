@@ -9,8 +9,6 @@ def get_tables_to_do(tables: list[list[int] | int]) -> list[int]:
     for table in tables:
         if isinstance(table, list):
             tables_to_do += table
-            # for t in table:
-            #     tables_to_do.append(t)
         else:
             tables_to_do.append(table)
 
@@ -81,7 +79,7 @@ def print_result(
             print(f"  {a:>2} x {b:>2}")
 
 
-def play_game(calculations: list[tuple[int, int]], limit_seconds: int) -> None:
+def play_game(calculations: list[tuple[int, int]], limit_seconds: int) -> bool:
     ok: list[tuple[int, int]] = []
     nok: list[tuple[int, int]] = []
 
@@ -99,6 +97,8 @@ def play_game(calculations: list[tuple[int, int]], limit_seconds: int) -> None:
     elaspsed_time: int = int(round(number=abs(start - end), ndigits=0))
 
     print_result(ok=ok, nok=nok, time=elaspsed_time, limit_seconds=limit_seconds)
+
+    return len(nok) == 0
 
 
 def get_emoji_color(color: str) -> str:
