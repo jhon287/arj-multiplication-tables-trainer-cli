@@ -1,18 +1,24 @@
 from random import choice, shuffle
 from time import perf_counter
-from config import BELT_EMOJI_COLORS
+from config import BELT_EMOJI_COLORS, BELT_COLORS, CALCULATION_NUMBERS, TABLES
 
 
-def get_tables_to_do(tables: list[list[int] | int]) -> list[int]:
+def get_tables_to_do(belt_color: str) -> list[int]:
     tables_to_do: list[int] = []
 
-    for table in tables:
+    index: int = BELT_COLORS.index(belt_color)
+
+    for table in TABLES[0 : index + 1]:
         if isinstance(table, list):
             tables_to_do += table
         else:
             tables_to_do.append(table)
 
-    return tables_to_do
+    return sorted(tables_to_do)
+
+
+def get_calculations_number(belt_color: str) -> int:
+    return CALCULATION_NUMBERS[BELT_COLORS.index(belt_color)]
 
 
 def get_calculations(tables: list[int], number: int = 10) -> list[tuple[int, int]]:

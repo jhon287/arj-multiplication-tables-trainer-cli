@@ -1,13 +1,12 @@
 from argparse import ArgumentParser, Namespace
+from config import BELT_COLORS, LIMIT_TIME_SECONDS
 
-import config
 import utils
 
 
 def run(color: str, print_only: bool = False) -> bool:
-    index: int = config.BELT_COLORS.index(color)
-    calculations_number: int = config.CALCULATION_NUMBERS[index]
-    tables_to_do: list[int] = utils.get_tables_to_do(tables=config.BELTS[0 : index + 1])
+    calculations_number: int = utils.get_calculations_number(belt_color=color)
+    tables_to_do: list[int] = utils.get_tables_to_do(belt_color=color)
     calculations: list[tuple[int, int]] = utils.get_calculations(
         tables=tables_to_do, number=calculations_number
     )
@@ -21,7 +20,7 @@ def run(color: str, print_only: bool = False) -> bool:
         utils.print_calculations(calculations=calculations)
     else:
         return utils.play_game(
-            calculations=calculations, limit_seconds=config.LIMIT_TIME_SECONDS
+            calculations=calculations, limit_seconds=LIMIT_TIME_SECONDS
         )
 
     return True
@@ -35,14 +34,14 @@ def main() -> None:
     parser.add_argument(
         "--color",
         type=str,
-        choices=config.BELT_COLORS + ["all"],
-        default=config.BELT_COLORS[0],
+        choices=BELT_COLORS + ["all"],
+        default=BELT_COLORS[0],
     )
     parser.add_argument("--print-only", action="store_true")
 
     args: Namespace = parser.parse_args()
 
-    for color in config.BELT_COLORS if args.color == "all" else [args.color]:
+    for color in BELT_COLORS if args.color == "all" else [args.color]:
         if not run(color=color, print_only=args.print_only):
             print("Nope! You failed... 💔")
             break
